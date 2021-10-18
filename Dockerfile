@@ -1,7 +1,13 @@
-FROM php:7.4-fpm-alpine3.14
+FROM php:7.4-fpm-alpine
 
-RUN apk add --no-cache shadow openssl bash mysql-client nodejs npm git
-RUN docker-php-ext-install pdo pdo_mysql
+RUN apk add --no-cache shadow openssl bash mysql-client nodejs npm git freetype-dev libzip-dev libjpeg-turbo-dev libpng-dev
+
+RUN docker-php-ext-install pdo pdo_mysql bcmath sockets
+
+RUN docker-php-ext-configure gd  --with-freetype --with-jpeg
+
+RUN docker-php-ext-install gd \
+    && docker-php-ext-install zip
 
 RUN touch /home/www-data/.bashrc | echo "PS1='\w\$ '" >> /home/www-data/.bashrc
 

@@ -5,7 +5,7 @@ services:
     app:
         build: .
         container_name: app
-        entrypoint: dockerize -template ./.docker/app/.env:.env -wait tcp://db:3306 -timeout 100s ./.docker/entrypoint.sh
+        entrypoint: dockerize -template ./.docker/app/.env.example:.env -wait tcp://db:3306 -timeout 100s ./.docker/entrypoint.sh
         environment:
             - _DB_HOST=db
             - _DB_DATABASE=app
